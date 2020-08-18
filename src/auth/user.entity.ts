@@ -1,5 +1,6 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, Unique } from 'typeorm';
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, Unique, OneToMany } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import { Task } from '../tasks/task.entity';
  @Entity()
 @Unique(['username'])
 export class User extends BaseEntity{
@@ -11,6 +12,8 @@ username: string ;
 password:string;
 @Column()
 salt:string
+@OneToMany(type=>Task, task=> task.user ,{eager:true}) //eager allow as to access user.tasks and it cant be true in both side   
+tasks: Task[];
 
 async validatePassword(password:string):Promise<Boolean>{
     const hash = await bcrypt.hash(password,this.salt)

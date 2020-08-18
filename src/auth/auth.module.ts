@@ -12,7 +12,7 @@ import { JwtStrategy } from './jwt.strategy';
       defaultStrategy: 'jwt'
     }),
     JwtModule.register({//now we can use all jwt services 
-      secret:'topSecret51',
+      secret:'Secret',
       signOptions:{
         expiresIn:3600 ,
       }

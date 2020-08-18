@@ -32,7 +32,7 @@ if(error.code==='23505'){//duplicate code
 async validationUserpassword(authCredentialsDto:AuthCredintealsDto):Promise<string>{
     const {username ,password}= authCredentialsDto
     const user =  await this.findOne({username})
-    if(user && await user.validatePassword(password)){
+    if(user && await user.validatePassword(password)){// after passing the password we checked the hashed value with the saved password
         return user.username
     }else{
         return null

@@ -14,7 +14,7 @@ constructor(
 ){
     super({
         jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-        secretOrKey: 'topSecret51'
+        secretOrKey: 'Secret'
     });
 }
 async validate(payload:jwtPayload):Promise<User>{// return type 
