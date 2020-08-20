@@ -12,6 +12,8 @@ username: string ;
 password:string;
 @Column()
 salt:string
+@Column()
+teswt:string
 @OneToMany(type=>Task, task=> task.user ,{eager:true}) //eager allow as to access user.tasks and it cant be true in both side   
 tasks: Task[];
 

@@ -16,7 +16,8 @@ export class Task extends BaseEntity {
     @Column()
     userId:number
     @Column()
-    test1:number 
+    test:number
     @Column()
-    test:number 
+    test22:number
+   
 }
