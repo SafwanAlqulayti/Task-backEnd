@@ -15,4 +15,8 @@ export class Task extends BaseEntity {
     user: User;
     @Column()
     userId:number
+    @Column()
+    test1:number 
+    @Column()
+    test:number 
 }
