@@ -3,7 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TasksModule } from './tasks/tasks.module';
 import { AuthModule } from './auth/auth.module';
-import * as ORMConfig  from './ormconfig';
+import * as ORMConfig from 'dist/config/ORMconfig'
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({

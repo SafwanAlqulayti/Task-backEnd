@@ -22,4 +22,4 @@ cli: {
   }
 }
 
-export =  ORMConfig ;
+export = ORMConfig ;
