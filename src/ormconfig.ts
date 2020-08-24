@@ -1,5 +1,5 @@
 import {TypeOrmModuleOptions} from '@nestjs/typeorm'
- const ORMConfig: TypeOrmModuleOptions={
+  const ORMConfig: TypeOrmModuleOptions={
 type: 'postgres',
 host: 'localhost',
 port: 5432 ,
@@ -11,7 +11,7 @@ synchronize: false,
 migrationsRun: true,//run it automatically
 logging: true,
 logger: 'file',
-migrations: [__dirname + '/migrations/**/*{.ts,.js}'], //load migrations
+migrations: [__dirname + '/migrations/**/*{.ts,.js}'], //load migrations  
 // migrations: [
 //   "build/migration/*.js"
 // ],

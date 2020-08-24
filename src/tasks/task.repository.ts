@@ -35,8 +35,9 @@ export class TaskRepository extends Repository<Task> {
     // }
 
     async createTask(createTaskDto:CreateTaskDto,
-        user: User
-        ):Promise<Task>{
+        user: User,
+        translation:string
+        ){
         const {title,description} = createTaskDto ;
         const task = new Task() ;
         task.title = title ;
@@ -45,6 +46,6 @@ export class TaskRepository extends Repository<Task> {
         task.user = user ;
        await task.save() ;
        delete task.user //to remove it from response 
-       return task;
+       return `${task.title} ${translation}`;
     }
 }
