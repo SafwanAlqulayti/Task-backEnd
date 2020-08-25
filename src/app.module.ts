@@ -34,7 +34,11 @@ import { I18nModule, I18nJsonParser, QueryResolver, HeaderResolver, AcceptLangua
     I18nModule.forRootAsync({
       useFactory: () => {
         return {
-          fallbackLanguage: 'en',
+          fallbackLanguage: 'en', 
+          fallbacks: {
+            'en-CA': 'ar'
+          
+          },
           parserOptions: {
             path: path.join('src/i18n'),
           },

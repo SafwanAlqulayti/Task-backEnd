@@ -1,4 +1,5 @@
 import {TypeOrmModuleOptions} from '@nestjs/typeorm'
+import { TaskSubscriber } from './tasks/task.subscriber';
   const ORMConfig: TypeOrmModuleOptions={
 type: 'postgres',
 host: 'localhost',
@@ -12,6 +13,11 @@ migrationsRun: true,//run it automatically
 logging: true,
 logger: 'file',
 migrations: [__dirname + '/migrations/**/*{.ts,.js}'], //load migrations  
+// subscribers: ['src/**/**.subscriber{.ts,.js}/..'], // for entity listeners
+// subscribers: [TaskSubscriber],
+autoLoadEntities: true ,
+
+
 // migrations: [
 //   "build/migration/*.js"
 // ],

@@ -11,26 +11,27 @@ import { GetUser } from 'src/auth/get-user.decorator';
 import { User } from '../auth/user.entity';
 import { json } from 'body-parser';
 import { I18n, I18nContext,I18nService } from 'nestjs-i18n';
+import { GetLang } from './GetLang';
  
 @Controller('tasks')
-// @UseGuards(AuthGuard())// we can use it in one handler , now we cant see tasks unless we have token
+ @UseGuards(AuthGuard())// we can use it in one handler , now we cant see tasks unless we have token
 export class TasksController {
     constructor(private taskService:TasksService,
         private readonly _i18n: I18nService,
         ){} //private to only apply changes in tasksServicces component
     private logger = new Logger('TaskController')
-//     @Get()
-// getTasks(@Query(ValidationPipe) filterDto:GetTaskFilterDto,
-// @GetUser() user:User ,
-// ):Promise<Task[]>{//Search , check both the status and and search through the pipe
-//     // if(Object.keys(filterDto).length){//check if any keys is provided
-//     //     return this.taskService.getTaskWithFilter(filterDto)
-//     // }else{
-//     //     return this.taskService.getAllTasks()
-//     // }
-//     this.logger.verbose(`the username is ${user.username} and the filter is ${JSON.stringify(filterDto)}`)
-//     return this.taskService.getTasks(filterDto , user)
-// }
+    @Get()
+getTasks(@Query(ValidationPipe) filterDto:GetTaskFilterDto,
+@GetUser() user:User ,
+):Promise<Task[]>{//Search , check both the status and and search through the pipe
+    // if(Object.keys(filterDto).length){//check if any keys is provided
+    //     return this.taskService.getTaskWithFilter(filterDto)
+    // }else{
+    //     return this.taskService.getAllTasks()
+    // }
+    this.logger.verbose(`the username is ${user.username} and the filter is ${JSON.stringify(filterDto)}`)
+    return this.taskService.getTasks(filterDto , user)
+}
 @Get(':id')
 getOneTask(
     @Param('id',ParseIntPipe) id:number,
@@ -52,12 +53,13 @@ getOneTask(
 @UsePipes(ValidationPipe)
 async createTask( 
     @Body() createTaskDto:CreateTaskDto,
-    @GetUser() user:User 
+    @GetUser() user:User ,
+    @GetLang() lang
     ){
         const translation = await this._i18n.translate(
             'greeting.keywords.ADD',
             {
-                lang: 'en',
+                lang: lang,
             },
         );
 return this.taskService.createTask(createTaskDto , user ,translation)
