@@ -42,7 +42,7 @@
 // }
 // }
 import { Repository, Entity, EntityRepository,createConnection } from 'typeorm';
-import { User } from './user.entity';
+import { User } from '../entity/user.entity';
 import { AuthCredintealsDto } from './dto/auth-credintials.dto';
 import { ConflictException, InternalServerErrorException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';

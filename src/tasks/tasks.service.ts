@@ -5,9 +5,9 @@ import { query } from 'express';
 import { objectTypeCallProperty } from '@babel/types';
 import { TaskRepository } from './task.repository';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Task } from './task.entity';
+import { Task } from '../entity/task.entity';
 import { TaskStatus } from './task-status.enum';
-import { User } from '../auth/user.entity';
+import { User } from '../entity/user.entity';
 import { UpdateResult } from 'typeorm';
  @Injectable()
 export class TasksService {

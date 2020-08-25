@@ -1,6 +1,6 @@
 import { BaseEntity, Entity, UpdateEvent, PrimaryGeneratedColumn, Column, ManyToOne, BeforeInsert, BeforeUpdate, UpdateDateColumn } from "typeorm";
-import { TaskStatus } from './task-status.enum';
-import { User } from '../auth/user.entity';
+import { TaskStatus } from '../tasks/task-status.enum';
+import { User } from './user.entity';
 // import { EntitySubscriberInterface, EventSubscriber, UpdateEvent } from 'typeorm';
 import { Logger } from '@nestjs/common';
 
@@ -8,8 +8,9 @@ import { Logger } from '@nestjs/common';
 export class Task extends BaseEntity {
     // @BeforeUpdate()
     // beforeUpdate()  {
-    //     const s = "ss"
-    //     this.track.values.(s)
+      
+    //  const statusBefore = this.status  ;
+    //  console.log(statusBefore)
         
     //   }
     @PrimaryGeneratedColumn()
