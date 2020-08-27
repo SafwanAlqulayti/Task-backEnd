@@ -14,7 +14,7 @@ import { JwtStrategy } from './jwt.strategy';
     JwtModule.register({//now we can use all jwt services 
       secret:'Secret',
       signOptions:{
-        expiresIn:3600 ,
+        expiresIn:360000 ,
       }
     }),
     TypeOrmModule.forFeature([UserRepository])

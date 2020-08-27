@@ -1,18 +1,20 @@
-import { BaseEntity, Entity, UpdateEvent, PrimaryGeneratedColumn, Column, ManyToOne, BeforeInsert, BeforeUpdate, UpdateDateColumn } from "typeorm";
+import { BaseEntity, Entity, UpdateEvent, PrimaryGeneratedColumn, Column, ManyToOne, BeforeInsert, BeforeUpdate, UpdateDateColumn, EntityManager } from "typeorm";
 import { TaskStatus } from '../tasks/task-status.enum';
 import { User } from './user.entity';
 // import { EntitySubscriberInterface, EventSubscriber, UpdateEvent } from 'typeorm';
 import { Logger } from '@nestjs/common';
+import { query } from 'express';
 
 @Entity()
 export class Task extends BaseEntity {
-    // @BeforeUpdate()
-    // beforeUpdate()  {
-      
-    //  const statusBefore = this.status  ;
-    //  console.log(statusBefore)
-        
-    //   }
+    @BeforeUpdate()
+    beforeUpdate()  {
+      // find the old value and save in the new table task id value 
+     const statusBefore = this.status  ;
+     const r = BaseEntity
+     console.log(statusBefore)
+        console.log("---------")
+      }
     @PrimaryGeneratedColumn()
     id:number
     @Column()

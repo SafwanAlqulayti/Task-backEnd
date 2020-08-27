@@ -10,7 +10,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from 'src/auth/get-user.decorator';
 import { User } from '../entity/user.entity';
 import { json } from 'body-parser';
-import { I18n, I18nContext,I18nService } from 'nestjs-i18n';
+import { I18n, I18nContext,I18nService, I18nLang } from 'nestjs-i18n';
 import { GetLang } from './GetLang';
  
 @Controller('tasks')
@@ -54,7 +54,8 @@ getOneTask(
 async createTask( 
     @Body() createTaskDto:CreateTaskDto,
     @GetUser() user:User ,
-    @GetLang() lang
+    // @GetLang() lang,
+    @I18nLang() lang: string
     ){
         const translation = await this._i18n.translate(
             'greeting.keywords.ADD',

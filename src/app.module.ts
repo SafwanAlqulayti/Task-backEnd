@@ -7,7 +7,7 @@ import * as  ORMConfig  from './config/ormconfig'
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as path from 'path';
 import { I18nModule, I18nJsonParser, QueryResolver, HeaderResolver, AcceptLanguageResolver, CookieResolver } from 'nestjs-i18n';
-import { TaskSubscriber } from './tasks/task.subscriber';
+// import { TaskSubscriber } from './tasks/task.subscriber';
 
 
 @Module({
@@ -36,10 +36,10 @@ import { TaskSubscriber } from './tasks/task.subscriber';
       useFactory: () => {
         return {
           fallbackLanguage: 'en', 
-          fallbacks: {
-            'en-CA': 'ar'
+          // fallbacks: {
+          //   'en-CA': 'ar'
           
-          },
+          // },
           parserOptions: {
             path: path.join('src/i18n'),
           },
@@ -47,12 +47,14 @@ import { TaskSubscriber } from './tasks/task.subscriber';
       },
       parser: I18nJsonParser,
      
-      resolvers: [{ use: QueryResolver, options: ['lang', 'locale', 'l'] }],
-
+      resolvers: [{ use: QueryResolver, options: ['lang', 'locale', 'l'] },
+      new HeaderResolver(['x-custom-lang']),
+      AcceptLanguageResolver,],
+ 
     })
     ],
      
   controllers: [AppController],
-  providers: [AppService , TaskSubscriber],
+  providers: [AppService ],
 })
 export class AppModule {}

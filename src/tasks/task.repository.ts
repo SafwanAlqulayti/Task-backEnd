@@ -10,7 +10,7 @@ import { GetTaskFilterDto } from './dto/get-tasks-filter.dto';
 export class TaskRepository extends Repository<Task> {
     async getTasks(filterDto:GetTaskFilterDto,
         user:User
-        ):Promise<Task[]>{
+        ):Promise<Task[]>{ //CHANGE to find
         const {status ,search} = filterDto
         const query = this.createQueryBuilder('task')//refer to task entity
         query.where('task.userId = :userId',{userId: user.id})//it will only show the realeted idd to the user
@@ -23,7 +23,7 @@ export class TaskRepository extends Repository<Task> {
         }
         const tasks = await query.getMany()
         return tasks ;
-    }
+    } 
     // async getTaskById(id:number):Promise<Task>{
     //     const found = await this.findOne(id)
  
