@@ -1,5 +1,5 @@
 import { BaseEntity, Entity, UpdateEvent, PrimaryGeneratedColumn, Column, ManyToOne, BeforeInsert, BeforeUpdate, UpdateDateColumn, EntityManager } from "typeorm";
-import { TaskStatus } from '../tasks/task-status.enum';
+import { TaskStatus } from 'src/tasks/task-status.enum';
 import { User } from './user.entity';
 // import { EntitySubscriberInterface, EventSubscriber, UpdateEvent } from 'typeorm';
 import { Logger } from '@nestjs/common';
@@ -18,7 +18,7 @@ export class Task extends BaseEntity {
     @PrimaryGeneratedColumn()
     id:number
     @Column()
-    title:string 
+    title:string  
     @Column()
     description: string
     @Column()

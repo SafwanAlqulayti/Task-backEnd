@@ -9,25 +9,20 @@ import { Task } from '../entity/task.entity';
 import { TaskStatus } from './task-status.enum';
 import { User } from '../entity/user.entity';
 import { UpdateResult } from 'typeorm';
+import { I18nService, I18nRequestScopeService } from 'nestjs-i18n';
+import { async } from 'rxjs';
  @Injectable()
 export class TasksService {
      constructor(
          @InjectRepository(TaskRepository)
-        private taskRepository: TaskRepository
+        private taskRepository: TaskRepository,
+        private i18n : I18nRequestScopeService
     ){}
 
        async getTasks(filterDto:GetTaskFilterDto
         , user:User 
         ):Promise<Task[]>{
-            // const {status ,search} = filterDto
-            // const query = this.taskRepository.createQueryBuilder('task')//refer to task entity
-            // if(status){
-            //     query.andWhere('task.status = :status',{status})
-            // }
-            // if(search){
-            //     query.andWhere('(task.title LIKE :search OR task.description LIKE :search)',{search: `%search%`})// if we want to search for part of the title we have to use %%
-            // }
-            // const tasks = await query.getMany()
+       
             return  this.taskRepository.getTasks(filterDto,user) 
         }    
 
@@ -38,24 +33,18 @@ export class TasksService {
                      const found = await this.taskRepository.findOne({where:{id ,userId:user.id}} )
  
                     if(!found){
-                     throw new NotFoundException(`Task with ID ${id} is Not found`);
+                        const err = await this.i18n.translate('greeting.keywords.ERROR')
+                     throw new NotFoundException(err);//`Task with ID ${id} is Not found`
                                   
-                    }
+                    }  
                         return   found
            }
                   
-             //    return await this.taskRepository.createTask(createTaskDto);
             async createTask(createTaskDto:CreateTaskDto,
                  user:User ,
                  translaion:string
                 ){
-            //     const {title,description} = createTaskDto ;
-            //     const task = new Task() ;
-            //     task.title = title ;
-            //     task.description = description;
-            //     task.status = TaskStatus.Done ;
-            //    await this.taskRepository.save(task) ;
-            //    return task;
+
                return this.taskRepository.createTask(createTaskDto,user,translaion)
            }
         async deleteTask(id:number,
@@ -63,11 +52,27 @@ export class TasksService {
             ):Promise<void>{
             const result = await this.taskRepository.delete({id,userId:user.id})
             if(result.affected === 0){
-                throw new NotFoundException(`Task with ID ${id} is Not found`);
+                const err = await this.i18n.translate('greeting.keywords.ERROR')
+                throw new NotFoundException(err);
 
             }
+     
             
         }
+        // remove = async (id:number)=>{
+        //         const err = await this.i18n.translate('greeting.keywords.ERROR')
+
+        //     try{
+        //         await this.taskRepository.delete(id)
+        //         if(await this.taskRepository.findOne(id) == null)  throw new NotFoundException(err);
+                   
+
+                
+        //     }catch(error){
+        //         // console.log('test')
+        //         return error
+        //     }
+        // }
         async updateTask(id:number , status: TaskStatus,
             user:User
            ):Promise<Task>{
@@ -77,52 +82,3 @@ export class TasksService {
             return found
         }
     }
-//     getAllTasks(): Task[] {
-//     return this.tasks ; 
-//     }
-//     getTaskWithFilter(filterDto:GetTaskFilterDto): Task[] {
-//         const {status , search   } = filterDto;
-//         let tasks = this.getAllTasks()
-//         if(status){
-//             tasks = tasks.filter(task => task.status === status)
-//         }
-//         if(search){
-//             tasks = tasks.filter(task=> 
-//               task.title.includes(search) ||
-//               task.description.includes(search) 
-//                  )
-//         }
-//         return tasks
-//       }
-//     getTaskById(id:string):Task{
-//      const found =  this.tasks.find(task=> task.id === id)
-//      const errors = {Task: ' not found'};
-//     if(!found){
-//         throw new NotFoundException(`Task with ID ${id} is Not found`);
-          
-//     } 
-//      return   found
-//     }
-//     creatTask(creatTaskDo: CreateTaskDto){
-// const {title ,description} = creatTaskDo ;
-// const task: Task ={
-// id:uuidv4(),
- 
-// title,
-// description ,
-// status: TaskStatus.Open
-// }
-// this.tasks.push(task)
-// return task
-//     }
-
-//     updateTask(id:string , status:TaskStatus):Task{
-//         const task = this.getTaskById(id)
-//         task.status = status
-//         return task
-//     }
-//     deleteTask(id:string):void{
-//         const found = this.getTaskById(id)
-//         this.tasks = this.tasks.filter(task => task.id !== found.id)
-          
-//     }

@@ -7,39 +7,23 @@ import * as  ORMConfig  from './config/ormconfig'
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as path from 'path';
 import { I18nModule, I18nJsonParser, QueryResolver, HeaderResolver, AcceptLanguageResolver, CookieResolver } from 'nestjs-i18n';
-// import { TaskSubscriber } from './tasks/task.subscriber';
+ import { ConfigModule } from '@nestjs/config';
+import { MinioClientModule } from './minio-client/minio-client.module';
+import { FileUploadModule } from './file-upload/file-upload.module';
 
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     TypeOrmModule.forRoot(ORMConfig),
     TasksModule,
      AuthModule,
-    //  I18nModule.forRoot({
-    //   fallbackLanguage: 'en',
-    //   parser: I18nJsonParser,
-    //   parserOptions: {
-    //     path: path.join('src/i18n'),
-    //     watch: true,
-    //   },
-    //   // resolvers: [
-    //   //   { use: QueryResolver, options: ['lang', 'locale', 'l'] },
-    //   //   new HeaderResolver(['x-custom-lang']),
-    //   //   AcceptLanguageResolver,
-    //   //   new CookieResolver(['lang', 'locale', 'l']),
-    //   // ],
-    //   resolvers: [{ use: QueryResolver, options: ['lang', 'locale', 'l'] }],
-    
-      
-    // }),
+
     I18nModule.forRootAsync({
       useFactory: () => {
         return {
           fallbackLanguage: 'en', 
-          // fallbacks: {
-          //   'en-CA': 'ar'
-          
-          // },
+        
           parserOptions: {
             path: path.join('src/i18n'),
           },
@@ -48,10 +32,15 @@ import { I18nModule, I18nJsonParser, QueryResolver, HeaderResolver, AcceptLangua
       parser: I18nJsonParser,
      
       resolvers: [{ use: QueryResolver, options: ['lang', 'locale', 'l'] },
-      new HeaderResolver(['x-custom-lang']),
-      AcceptLanguageResolver,],
+      // new HeaderResolver(['x-custom-lang']),
+      AcceptLanguageResolver
+      ,],
  
-    })
+    }),
+
+    MinioClientModule,
+
+    FileUploadModule
     ],
      
   controllers: [AppController],

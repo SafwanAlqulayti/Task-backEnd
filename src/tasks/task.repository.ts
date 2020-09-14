@@ -12,27 +12,12 @@ export class TaskRepository extends Repository<Task> {
         user:User
         ):Promise<Task[]>{ //CHANGE to find
         const {status ,search} = filterDto
-        const query = this.createQueryBuilder('task')//refer to task entity
-        query.where('task.userId = :userId',{userId: user.id})//it will only show the realeted idd to the user
 
-        if(status){
-            query.andWhere('task.status = :status',{status})
-        }
-        if(search){
-            query.andWhere('(task.title LIKE :search OR task.description LIKE :search)',{search: `%search%`})// if we want to search for part of the title we have to use %%
-        }
-        const tasks = await query.getMany()
+        const tasks = await   this.find({where:{id:user.id}})
+       
         return tasks ;
     } 
-    // async getTaskById(id:number):Promise<Task>{
-    //     const found = await this.findOne(id)
- 
-    //     if(!found){
-    //      throw new NotFoundException(`Task with ID ${id} is Not found`);
-                      
-    //     }
-    //         return   found
-    // }
+
 
     async createTask(createTaskDto:CreateTaskDto,
         user: User,
@@ -48,4 +33,24 @@ export class TaskRepository extends Repository<Task> {
        delete task.user //to remove it from response 
        return `${task.title} ${translation}`;
     }
+//    async findTask(id , user:User){
+//     const found = await this.findOne({where:{id ,userId:user.id}} )
+ 
+//     if(!found){
+//      throw new NotFoundException(`Task with ID ${id} is Not found`);
+                  
+//     }
+//     return found
+
 }
+        // const query = this.createQueryBuilder('task')//refer to task entity
+        // query.where('task.userId = :userId',{userId: user.id})//it will only show the realeted idd to the user
+
+        // if(status){
+        //     query.andWhere('task.status = :status',{status})
+        // }
+        // if(search){
+        //     query.andWhere('(task.title LIKE :search OR task.description LIKE :search)',{search: `%search%`})// if we want to search for part of the title we have to use %%
+        // }
+                //  = await query.getMany()
+

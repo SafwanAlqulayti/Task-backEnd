@@ -11,7 +11,7 @@ import { GetUser } from 'src/auth/get-user.decorator';
 import { User } from '../entity/user.entity';
 import { json } from 'body-parser';
 import { I18n, I18nContext,I18nService, I18nLang } from 'nestjs-i18n';
-import { GetLang } from './GetLang';
+// import { GetLang } from './GetLang';
  
 @Controller('tasks')
  @UseGuards(AuthGuard())// we can use it in one handler , now we cant see tasks unless we have token
@@ -39,16 +39,7 @@ getOneTask(
 ): Promise<Task>{
     return this.taskService.getTaskById(id , user)
 }
-// @Get()
-//  async getTest():Promise<string>{
-//     const translation = await this._i18n.translate(
-//         'greeting.keywords.ADD',
-//         {
-//             lang: 'ar',
-//         },
-//     );
-//     return translation
-//  }
+
 @Post()
 @UsePipes(ValidationPipe)
 async createTask( 
@@ -76,7 +67,12 @@ return this.taskService.createTask(createTaskDto , user ,translation)
  deleteTask(@Param('id',ParseIntPipe) id:number,
  @GetUser() user:User):Promise<void> {
      return this.taskService.deleteTask(id,user)
- }   
+ }  
+// @Delete(':id')
+// deleteTask(@Param('id',ParseIntPipe) id:number,
+// @GetUser() user:User) {
+//     return this.taskService.remove(id)
+// }  
 
 
 }

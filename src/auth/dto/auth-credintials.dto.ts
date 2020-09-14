@@ -7,6 +7,5 @@ export class AuthCredintealsDto {
     username:string;
     @MinLength(6)
     @MaxLength(16)
-    //  @Matches(/((?=.*\d)|(?=.*\w+))/)
-    password:string
+     password:string
 }

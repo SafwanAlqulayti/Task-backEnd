@@ -1,4 +1,4 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, Unique, OneToMany } from 'typeorm';
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, Unique, OneToMany, BeforeInsert } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { Task } from './task.entity';
  @Entity()
@@ -10,10 +10,12 @@ id:number ;
 username: string ;
 @Column()
 password:string;
+// @BeforeInsert()
+// async hashPass(){
+//     this.password = await bcrypt.hash(this.password  ,10)
+// }
 @Column()
 salt:string
-@Column({nullable:true})
-teswt:string
 @OneToMany(type=>Task, task=> task.user ,{eager:true}) //eager allow as to access user.tasks and it cant be true in both side   
 tasks: Task[];
 

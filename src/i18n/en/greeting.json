@@ -1,6 +1,8 @@
 
 { "keywords":{
-    "ADD": "Task addedd"
+    "ADD": "Task addedd" ,
+    "ERROR": "Id is not exist",
+    "CREDENTIALS": "Email or password wrong"
 }
   
   }

@@ -1,0 +1,14 @@
+ db:
+   host: 'localhost'
+   type: 'postgres'
+   port: 5432
+   username: 'postgres'
+   password: '123456'
+
+ jwt: 
+  secret: 'Secret'
+    
+     
+     jwt:
+       secret: "secret"
+       
