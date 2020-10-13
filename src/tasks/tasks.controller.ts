@@ -21,7 +21,7 @@ export class TasksController {
         ){} //private to only apply changes in tasksServicces component
     private logger = new Logger('TaskController')
     @Get()
-getTasks(@Query(ValidationPipe) filterDto:GetTaskFilterDto,
+getTasks(//@Query(ValidationPipe) filterDto:GetTaskFilterDto,
 @GetUser() user:User ,
 ):Promise<Task[]>{//Search , check both the status and and search through the pipe
     // if(Object.keys(filterDto).length){//check if any keys is provided
@@ -29,8 +29,8 @@ getTasks(@Query(ValidationPipe) filterDto:GetTaskFilterDto,
     // }else{
     //     return this.taskService.getAllTasks()
     // }
-    this.logger.verbose(`the username is ${user.username} and the filter is ${JSON.stringify(filterDto)}`)
-    return this.taskService.getTasks(filterDto , user)
+    // this.logger.verbose(`the username is ${user.username} and the filter is ${JSON.stringify(filterDto)}`)
+    return this.taskService.getTasks(user)
 }
 @Get(':id')
 getOneTask(
@@ -68,6 +68,7 @@ return this.taskService.createTask(createTaskDto , user ,translation)
  @GetUser() user:User):Promise<void> {
      return this.taskService.deleteTask(id,user)
  }  
+
 // @Delete(':id')
 // deleteTask(@Param('id',ParseIntPipe) id:number,
 // @GetUser() user:User) {

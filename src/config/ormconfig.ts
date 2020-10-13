@@ -4,15 +4,15 @@ import { printCommonLine } from 'jest-diff/build/printDiffs'
  
 const dbConfig = config.get('db')
 const ORMConfig: TypeOrmModuleOptions={
-type: dbConfig.type || process.env.DB_TYPE,
-host: dbConfig.host || process.env.DB_HOST,
-port: dbConfig.port || process.env.DB_PORT ,
+type:  'postgres', //
+host:  process.env.DB_HOST,
+port:  5432,
 username: 'postgres',
 password: '123456',
-database: dbConfig.database,
+database: 'TaskBackend',
 logging: true,
 entities: [__dirname + '/../**/*.entity.{ts,js}'],
-synchronize: false,
+synchronize: true,
 migrationsRun: false,//run it automatically
 migrations: ['src/migrations/*{.ts,.js}'], //load migrations
    

@@ -7,6 +7,9 @@ import {JwtModule} from '@nestjs/jwt';
 import {PassportModule} from '@nestjs/passport';
 import { JwtStrategy } from './jwt.strategy';
 import * as config from 'config'
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { LoggingInterceptor } from 'src/intercepotr/logger.interceptor';
+
 const jwtConfig = config.get('jwt')
 @Module({
   imports: [
@@ -23,6 +26,11 @@ const jwtConfig = config.get('jwt')
   ], 
   providers: [AuthService,
   JwtStrategy
+  ,
+  // {
+  //   provide: APP_INTERCEPTOR,
+  //   useClass: LoggingInterceptor,
+  // },
   ],
   controllers: [AuthController],
   exports:[

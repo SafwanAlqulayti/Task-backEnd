@@ -10,7 +10,6 @@ import { TaskStatus } from './task-status.enum';
 import { User } from '../entity/user.entity';
 import { UpdateResult } from 'typeorm';
 import { I18nService, I18nRequestScopeService } from 'nestjs-i18n';
-import { async } from 'rxjs';
  @Injectable()
 export class TasksService {
      constructor(
@@ -19,11 +18,11 @@ export class TasksService {
         private i18n : I18nRequestScopeService
     ){}
 
-       async getTasks(filterDto:GetTaskFilterDto
-        , user:User 
+       async getTasks(//filterDto:GetTaskFilterDto
+         user:User 
         ):Promise<Task[]>{
        
-            return  this.taskRepository.getTasks(filterDto,user) 
+            return  this.taskRepository.getTasks(user) 
         }    
 
         async getTaskById(id:number,
@@ -59,6 +58,9 @@ export class TasksService {
      
             
         }
+
+
+
         // remove = async (id:number)=>{
         //         const err = await this.i18n.translate('greeting.keywords.ERROR')
 
@@ -81,4 +83,7 @@ export class TasksService {
             await found.save()
             return found
         }
+
+
+
     }

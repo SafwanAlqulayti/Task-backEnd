@@ -8,13 +8,13 @@ import { User } from '../entity/user.entity';
 import { GetTaskFilterDto } from './dto/get-tasks-filter.dto';
 @EntityRepository(Task)
 export class TaskRepository extends Repository<Task> {
-    async getTasks(filterDto:GetTaskFilterDto,
+    async getTasks(//filterDto:GetTaskFilterDto,
         user:User
         ):Promise<Task[]>{ //CHANGE to find
-        const {status ,search} = filterDto
-
-        const tasks = await   this.find({where:{id:user.id}})
-       
+        // const {status ,search} = filterDto
+            console.log(user.id)
+        const tasks = await this.find( {where: {userId:user.id}, relations: ['user']})
+        
         return tasks ;
     } 
 
@@ -29,7 +29,7 @@ export class TaskRepository extends Repository<Task> {
         task.description = description;
         task.status = TaskStatus.Done ;
         task.user = user ;
-       await task.save() ;
+       await this.insert(task)
        delete task.user //to remove it from response 
        return `${task.title} ${translation}`;
     }
