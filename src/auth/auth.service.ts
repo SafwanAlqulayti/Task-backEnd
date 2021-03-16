@@ -65,7 +65,7 @@ async commercialregistration(id){
 }
 }
 // test(){
-//     instance.get(`'info/${12345612}`).then(function(res){
+//     instance.get(`'info/${555}`).then(function(res){
 //      if(res && res.data){
 //     console.log(res.data)
 //      }
@@ -75,7 +75,7 @@ async commercialregistration(id){
 // }
 // async test(){
 //     const instance = axios.create({
-//     baseURL: 'https://api.wathq.sa/v4/commercialregistration/',
+//     baseURL: 'https:///',
 //     timeout: 50000,
 //     headers: {"accept": "application/json","apiKey":process.env.APP_KEY,
 //     }
